@@ -18,7 +18,7 @@ export const Messages: React.FC<MessagesComponentProps> = ({ messages }) => {
     return (
         <ul style={{ display: "flex", listStyle: "none", overflowX: "auto", gap: 40, flex: 1, justifyContent: "center", flexDirection: "column" }}>
             {messages.map((message, index) => (
-                <li style={{ maxWidth: 440, marginLeft: index === 1 ? 80 : 0 }}>
+                <li key={message.id} style={{ maxWidth: 440, marginLeft: index === 1 ? 80 : 0 }}>
                     <p style={{ fontSize: 20 }}>{message.text}</p>
                     <div style={{ display: "flex", alignItems: "center", marginTop: 16 }}>
                         <div style={{ padding: 2, background: "linear-gradient(100deg,#FF008E 0% ,#FFCD1E 100%)", borderRadius: "50%", lineHeight: 0 }}>
