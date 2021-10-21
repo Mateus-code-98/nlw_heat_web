@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback, useEffect, useState } from "react"
+import LogoDoWhile from './assets/logo.svg';
+import { Login } from "./components/Login";
+import { messageProps, Messages } from "./components/Messages";
+import { Container } from "./style";
+import { api } from './services/api';
 
-function App() {
+export const App: React.FC = () => {
+  const [messages, setMessages] = useState<messageProps[]>([] as messageProps[])
+
+  const search3Messages = useCallback(async () => {
+    const resu = await api.get("/messages/last3")
+    setMessages(resu.data)
+  }, [])
+
+  useEffect(() => {
+    search3Messages()
+  })
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <Container>
 
-export default App;
+      <div style={{ display: "flex", flexDirection: "column", width: "48.14vw", minWidth: 440, padding: 20 }}>
+        <div>
+          <img src={LogoDoWhile} />
+        </div>
+        <Messages messages={messages} />
+      </div>
+      <div style={{ display: "flex", width: "32.5vw", minWidth: 400 }}>
+        <Login />
+      </div>
+
+    </Container>
+  )
+}
